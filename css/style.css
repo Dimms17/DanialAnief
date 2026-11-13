@@ -1,0 +1,485 @@
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --color-black: #0a0a0a;
+    --color-white: #ffffff;
+    --color-gold: #D4AF37;
+    --color-gray: #f4f4f4;
+    
+    --font-body: 'Cormorant Garamond', serif;
+    --font-hero: 'Playfair Display', serif;
+    --font-ui: 'Outfit', sans-serif;
+    --font-brand: 'Sora', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+} /* Added missing closing brace */
+
+h1, h2, h3, h4 {
+    font-family: var(--font-brand);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+} /* Added missing closing brace */
+
+/* Navigation */
+.hero-header {
+    position: fixed; /* Keeps it at the top when scrolling */
+    width: 100%;
+    top: 0;
+    background-color: rgba(10, 10, 10, 0.4); /* Dark semi-transparent box */
+    backdrop-filter: blur(4px); /* Frosted glass effect */
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle premium border */
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+
+/* This class will be triggered by JavaScript to slide the header away */
+.hero-header.hide {
+    transform: translateY(-100%);
+}
+
+/* 1. Enlarge only the desktop header navigation links */
+.hero-header .nav-links a {
+    font-size: 1.15rem; /* Increase or decrease this value as desired */
+}
+
+/* 2. Change the hover effect from gray fade to gold */
+.hero-header .nav-links a:hover {
+    opacity: 1; /* Removes the dimming fade effect */
+    color: var(--color-gold); /* Changes text color to your signature gold */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    font-family: var(--font-ui); 
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    color: var(--color-white);
+    text-decoration: none;
+}
+
+.logo-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.nav-links a {
+    font-family: var(--font-body);
+    font-weight: 400;
+    color: var(--color-white);
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+    margin-left: 2rem;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 0.7;
+    color: var(--color-white); 
+}
+
+/* Hero Section & Background */
+/* 1. The Hero Container */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    position: relative; /* Required to lock the background inside */
+    overflow: hidden; /* Prevents the zoomed image from making the page wider */
+    color: var(--color-white);
+}
+
+/* 2. The Animated Background Layer */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(10, 10, 10, 0.75), rgba(10, 10, 10, 0.9)), 
+        url('https://images.unsplash.com/photo-1506521781263-d8422e82f27a?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Pushes the image behind the text */
+    
+    /* 15 seconds to zoom in, then it smoothly reverses (alternates) infinitely */
+    animation: zoomInOut 15s infinite alternate ease-in-out;
+}
+
+/* 3. The Content (Must sit above the background) */
+.hero-content {
+    max-width: 800px;
+    position: relative;
+    z-index: 1; /* Ensures text stays visible on top of the zooming background */
+}
+
+/* 4. The Animation Logic */
+@keyframes zoomInOut {
+    0% {
+        transform: scale(1); /* Normal size */
+    }
+    100% {
+        transform: scale(1.15); /* Zoomed in by 15% */
+    }
+}
+
+.hero h1 {
+    font-family: var(--font-hero); 
+    font-size: 5.5rem; 
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+    color: var(--color-white);
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #cccccc; /* Soft gray for readability against the dark background */
+    margin-bottom: 2.5rem;
+    max-width: 650px;
+    line-height: 1.5;
+}
+
+/* Buttons */
+.btn-custom {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0 0 0 1.5rem; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.btn-custom:hover {
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: 1rem 1.25rem;
+    margin-left: 1.5rem; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 1. Base State: Hidden, pushed down, slightly scaled, and blurred */
+.reveal {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    filter: blur(8px);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter; /* Optimizes browser rendering */
+}
+
+/* 2. Active State: Morphs into place when JS detects it on screen */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+/* Sections */
+section {
+    padding: 8rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+    scroll-margin-top: 80px; /* Forces the browser to stop slightly below the fixed header */
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--color-black);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: var(--color-gold);
+    margin-top: 1rem;
+}
+
+/* Footer */
+footer {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: 6rem 5% 2rem; /* Increased top padding for a grander section feel */
+    margin-top: 0; /* Removes any awkward gap above it */
+    border-top: 2px solid var(--color-gold);
+    scroll-margin-top: 80px; /* Ensures smooth anchor navigation stops cleanly */
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+}
+
+.footer-brand {
+    font-family: var(--font-brand);
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.footer-brand-desc {
+    color: #888;
+    font-size: 0.95rem;
+    max-width: 300px;
+}
+
+.footer-info h4 {
+    color: var(--color-gold);
+    font-family: var(--font-body);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.footer-info p {
+    color: #cccccc;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-bottom {
+    max-width: 1400px;
+    margin: 4rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* Perfectly balances multi-line headings to look like a poster */
+h1, h2, h3, .section-title {
+    text-wrap: balance; 
+}
+
+/* Custom text selection color (replaces the default blue highlight) */
+::selection {
+    background-color: var(--color-gold);
+    color: var(--color-black);
+}
+
+/* Architectural Hairline Card */
+.practice-card {
+    position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Controls the space between the icon and the text */
+}
+
+/* Enlarge and style the icon */
+.practice-card i {
+    font-size: 2.25rem !important; /* Makes the icon large and prominent */
+    color: var(--color-gold);
+    flex-shrink: 0;
+    width: 60px; /* Gives the icon a consistent container to align against */
+    text-align: center;
+}
+
+/* Ensure headings use a professional serif font instead of Sora */
+.practice-card h2 {
+    font-family: var(--font-hero); /* Switches it to Playfair Display / Cormorant */
+    font-size: 2.2rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+/* Interactive Gold Line Trace on Hover (Remains Unchanged) */
+.practice-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background-color: var(--color-gold);
+    transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.practice-card:hover::before {
+    width: 100%;
+}
+
+/* Editorial Portrait Treatment */
+.team-photo {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(110%);
+    transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-gold);
+}
+
+.team-photo:hover {
+    filter: grayscale(0%) contrast(100%);
+}
+
+/* =========================================
+   Mobile Responsiveness (Smaller Screens)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Scale down the massive Hero Heading */
+    .hero h1 {
+        font-size: 3rem; 
+        margin-bottom: 1rem;
+    }
+
+    /* Scale down the Hero Paragraph */
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    /* Scale down the Logo */
+    .logo {
+        font-size: 1.1rem;
+        letter-spacing: 4px;
+    }
+
+    /* Scale down Section Titles (like in Practice or About pages) */
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    /* Adjust general section padding to give more room on mobile */
+    section {
+        padding: 5rem 5%;
+    }
+}
+
+/* Hide hamburger by default on desktop */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+@media (max-width: 900px) {
+    nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 3%;
+    }
+
+    .hamburger {
+        display: block; 
+        order: 1; 
+        margin-right: 1rem;
+    }
+
+    .logo-container {
+        order: 2; 
+        margin-right: auto; 
+        /* Reduces the gap between the hamburger button and the logo */
+        margin-left: 0.75rem; 
+        flex-direction: column;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: -100%; 
+        width: 80%;
+        max-width: 320px;
+        height: 100vh;
+        background-color: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(16px);
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start; 
+        padding-left: 2rem; 
+        gap: 1.5rem;
+        
+        transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    /* Professional hover box and link styling for the drawer */
+    .nav-links a {
+        margin-left: 0;
+        font-family: var(--font-hero); 
+        font-size: 1.3rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        padding: 0.75rem 1.25rem;
+        width: 85%;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Highlight box effect when hovering or tapping */
+    .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+        color: var(--color-gold);
+    }
+}
